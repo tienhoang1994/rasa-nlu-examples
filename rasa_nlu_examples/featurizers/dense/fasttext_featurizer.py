@@ -54,7 +54,10 @@ class FastTextFeaturizer(DenseFeaturizer):
                 f"It seems that file {path} does not exists. Please check config."
             )
 
-        self.model = fasttext.load_model(path)
+        if component_config['alias'] == 'prevent_reload':
+            self.model = None
+        else:
+            self.model = fasttext.load_model(path)
 
     def train(
         self,
